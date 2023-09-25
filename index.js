@@ -37,12 +37,12 @@ async function run() {
 
 
         // jwt token
-        app.post('/jwt', (req, res) => {
-            const user = req.body;
-            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+        // app.post('/jwt', (req, res) => {
+        //     const user = req.body;
+        //     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
 
-            res.send({ token })
-        })
+        //     res.send({ token })
+        // })
 
 
         // users related apis
@@ -97,6 +97,12 @@ async function run() {
         // Menu APis
         app.get('/menu', async (req, res) => {
             const result = await menuCollection.find().toArray();
+            res.send(result)
+        })
+
+        app.post('/menu', async (req, res) => {
+            const newItem = req.body;
+            const result = await menuCollection.insertOne(newItem)
             res.send(result)
         })
 
